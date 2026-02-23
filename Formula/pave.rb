@@ -11,8 +11,8 @@
 class Pave < Formula
   desc "Personal AI Virtual Environment - Terminal-based AI agent system"
   homepage "https://github.com/cnrai/openpave"
-  url "https://github.com/cnrai/pave-dist/archive/refs/tags/v0.2.0.tar.gz"
-  sha256 "669c3e008dc8c52257256c041526d83df83efee807753caabfd751c841e894db"
+  url "https://github.com/cnrai/pave-dist/archive/refs/tags/v0.3.0.tar.gz"
+  sha256 "bee404cd8f0e82ddfcb72ed397f8e2b8cedf9a63a7a96cf8ae6b8ac30b0b3b40"
   license "MIT"
   head "https://github.com/cnrai/pave-dist.git", branch: "main"
 
@@ -21,31 +21,31 @@ class Pave < Formula
     strategy :github_latest
   end
 
-  # Node.js is the primary runtime for the PAVE CLI
-  depends_on "node"
-  
   # SpiderMonkey provides the 'js' command for secure sandbox execution
   # The sandbox runs AI-generated scripts in an isolated SpiderMonkey compartment
   # with strict permission controls (network, filesystem, system commands)
   depends_on "spidermonkey"
 
   def install
-    # Install the pre-compiled distribution directly
-    libexec.install Dir["*"]
+    # Install the pre-compiled native binary directly
     
-    # Install runtime dependencies
-    cd libexec do
-      system "npm", "install", "--production"
+    # Detect platform and architecture
+    if OS.mac?
+      if Hardware::CPU.arm?
+        bin.install "pave-darwin-arm64" => "pave"
+      else
+        bin.install "pave-darwin-x64" => "pave"
+      end
+    else
+      if Hardware::CPU.arm?
+        bin.install "pave-linux-arm64" => "pave"
+      else
+        bin.install "pave-linux-x64" => "pave"
+      end
     end
     
-    # Create the main executable wrapper
-    (bin/"pave").write <<~EOS
-      #!/usr/bin/env bash
-      # PAVE - Personal AI Virtual Environment
-      # https://github.com/cnrai/openpave
-      
-      exec "#{Formula["node"].opt_bin}/node" "#{libexec}/pave.js" "$@"
-    EOS
+    # Install sandbox components
+    (libexec/"sandbox").install Dir["sandbox/*"]
   end
 
   def caveats
