@@ -28,6 +28,7 @@ class Pave < Formula
 
   def install
     # Install the pre-compiled native binary directly
+    # All code (including sandbox) is bundled and obfuscated inside the binary
     
     # Detect platform and architecture
     if OS.mac?
@@ -43,9 +44,6 @@ class Pave < Formula
         bin.install "pave-linux-x64" => "pave"
       end
     end
-    
-    # Install sandbox components
-    (libexec/"sandbox").install Dir["sandbox/*"]
   end
 
   def caveats
