@@ -11,10 +11,10 @@
 class Pave < Formula
   desc "Personal AI Virtual Environment - Terminal-based AI agent system"
   homepage "https://github.com/cnrai/openpave"
-  url "https://github.com/cnrai/openpave/archive/refs/tags/v0.2.0.tar.gz"
-  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+  url "https://github.com/cnrai/pave-dist/archive/refs/tags/v0.2.0.tar.gz"
+  sha256 "669c3e008dc8c52257256c041526d83df83efee807753caabfd751c841e894db"
   license "MIT"
-  head "https://github.com/cnrai/openpave.git", branch: "main"
+  head "https://github.com/cnrai/pave-dist.git", branch: "main"
 
   livecheck do
     url :stable
@@ -24,30 +24,22 @@ class Pave < Formula
   depends_on "node"
 
   def install
-    # Navigate to the pave package directory
-    cd "src/packages/pave" do
-      # Install npm dependencies for build (includes devDependencies for esbuild)
-      system "npm", "install"
-      
-      # Build the distribution bundle
-      system "npm", "run", "build:install"
-      
-      # The build creates a dist/ directory with the bundled application
-      dist_path = buildpath/"src/packages/pave/dist"
-      
-      # Install the bundled files to libexec
-      libexec.install Dir["#{dist_path}/*"]
-      
-      # Create the main executable wrapper
-      (bin/"pave").write <<~EOS
-        #!/usr/bin/env bash
-        # PAVE - Personal AI Virtual Environment
-        # https://github.com/cnrai/openpave
-        
-        export NODE_PATH="#{libexec}/node_modules:$NODE_PATH"
-        exec "#{Formula["node"].opt_bin}/node" "#{libexec}/pave.js" "$@"
-      EOS
+    # Install the pre-compiled distribution directly
+    libexec.install Dir["*"]
+    
+    # Install runtime dependencies
+    cd libexec do
+      system "npm", "install", "--production"
     end
+    
+    # Create the main executable wrapper
+    (bin/"pave").write <<~EOS
+      #!/usr/bin/env bash
+      # PAVE - Personal AI Virtual Environment
+      # https://github.com/cnrai/openpave
+      
+      exec "#{Formula["node"].opt_bin}/node" "#{libexec}/pave.js" "$@"
+    EOS
   end
 
   def caveats
