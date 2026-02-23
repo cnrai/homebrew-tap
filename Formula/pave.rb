@@ -21,7 +21,13 @@ class Pave < Formula
     strategy :github_latest
   end
 
+  # Node.js is the primary runtime for the PAVE CLI
   depends_on "node"
+  
+  # SpiderMonkey provides the 'js' command for secure sandbox execution
+  # The sandbox runs AI-generated scripts in an isolated SpiderMonkey compartment
+  # with strict permission controls (network, filesystem, system commands)
+  depends_on "spidermonkey"
 
   def install
     # Install the pre-compiled distribution directly
@@ -62,6 +68,10 @@ class Pave < Formula
         pave list               # List installed skills
         pave search <query>     # Search marketplace
 
+      Sandbox:
+        AI-generated scripts run in an isolated SpiderMonkey sandbox.
+        Configure permissions in ~/.pave/permissions.yaml
+
       Debug Mode:
         DEBUG=1 pave
 
@@ -78,5 +88,9 @@ class Pave < Formula
     # Test version output
     version_output = shell_output("#{bin}/pave --version 2>&1")
     assert_match(/\d+\.\d+/, version_output)
+    
+    # Test that SpiderMonkey's js command is available
+    js_output = shell_output("#{Formula["spidermonkey"].opt_bin}/js -e 'print(\"sandbox ready\")' 2>&1")
+    assert_match(/sandbox ready/, js_output)
   end
 end
