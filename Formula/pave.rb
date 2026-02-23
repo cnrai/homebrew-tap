@@ -11,8 +11,8 @@
 class Pave < Formula
   desc "Personal AI Virtual Environment - Terminal-based AI agent system"
   homepage "https://github.com/cnrai/openpave"
-  url "https://github.com/cnrai/pave-dist/archive/refs/tags/v0.3.6.tar.gz"
-  sha256 "2ef90924320123536cd14478dbf32804b96aa24aba93253cc2cb484ab3ce2ea0"
+  url "https://github.com/cnrai/pave-dist/archive/refs/tags/v0.3.8.tar.gz"
+  sha256 "50932c26b36c3aa227fdca0d0f430182ac83ee8814769fec154420ed1dfa4c5f"
   license "MIT"
   head "https://github.com/cnrai/pave-dist.git", branch: "main"
 
