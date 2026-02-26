@@ -51,9 +51,6 @@ brew upgrade pave
 
 ## Troubleshooting
 
-### Missing AI Backend
-PAVE requires an OpenCode-Lite server or compatible AI backend. Make sure your server is running and accessible.
-
 ### Node.js Version
 PAVE requires Node.js 16 or higher. The formula will install Node.js 18 as a dependency.
 
