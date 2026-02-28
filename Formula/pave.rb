@@ -1,94 +1,30 @@
-# typed: false
-# frozen_string_literal: true
-
-# Homebrew Formula for PAVE
-# Personal AI Virtual Environment - Terminal-based AI agent system
-#
-# Install via:
-#   brew tap cnrai/tap
-#   brew install pave
-
 class Pave < Formula
-  desc "Personal AI Virtual Environment - Terminal-based AI agent system"
+  desc "Personal AI Virtual Environment - AI agent framework"
   homepage "https://github.com/cnrai/openpave"
-  url "https://github.com/cnrai/pave-dist/archive/refs/tags/v0.3.13.tar.gz"
-  sha256 "7da0bbade903d59dac9cd9ffe4e2fa56b1381f80a1ca338e33afc5f6a61117ff"
+  version "0.3.15"
   license "MIT"
-  head "https://github.com/cnrai/pave-dist.git", branch: "main"
 
-  livecheck do
-    url :stable
-    strategy :github_latest
-  end
-
-  # SpiderMonkey provides the 'js' command for secure sandbox execution
-  # The sandbox runs AI-generated scripts in an isolated SpiderMonkey compartment
-  # with strict permission controls (network, filesystem, system commands)
-  depends_on "spidermonkey"
-
-  def install
-    # Install the pre-compiled native binary directly
-    # All code (including sandbox) is bundled and obfuscated inside the binary
-    
-    # Detect platform and architecture
-    if OS.mac?
-      if Hardware::CPU.arm?
-        bin.install "pave-darwin-arm64" => "pave"
-      else
-        bin.install "pave-darwin-x64" => "pave"
-      end
+  on_macos do
+    if Hardware::CPU.arm?
+      url "https://github.com/cnrai/pave-dist/releases/download/v0.3.15/pave-darwin-arm64"
+      sha256 "72e5843c838ae860b30a29c84accc4ff1cee926add06263fff1705c6f0be796e"
     else
-      if Hardware::CPU.arm?
-        bin.install "pave-linux-arm64" => "pave"
-      else
-        bin.install "pave-linux-x64" => "pave"
-      end
+      url "https://github.com/cnrai/pave-dist/releases/download/v0.3.15/pave-darwin-x64"
+      sha256 "446e5291c3d7c0c46d89c2fed65de06eed6309ed7331bf5f88b6c3b7e8a8c104"
     end
   end
 
-  def caveats
-    <<~EOS
-      PAVE has been installed!
+  on_linux do
+    url "https://github.com/cnrai/pave-dist/releases/download/v0.3.15/pave-linux-x64"
+    sha256 "a98d8cbed25c06592203f7f46277bc227ad79275733c9ba8a8502aeb19c2b68f"
+  end
 
-      Quick Start:
-        pave                    # Start the terminal UI
-        pave --help             # Show available options
-
-      Configuration:
-        Set OPENCODE_URL to your AI backend (default: http://localhost:4096)
-        
-        Example:
-          export OPENCODE_URL=http://your-server:4096
-          pave
-
-      Skill Management:
-        pave install gmail      # Install a skill from marketplace
-        pave list               # List installed skills
-        pave search <query>     # Search marketplace
-
-      Sandbox:
-        AI-generated scripts run in an isolated SpiderMonkey sandbox.
-        Configure permissions in ~/.pave/permissions.yaml
-
-      Debug Mode:
-        DEBUG=1 pave
-
-      For more information:
-        https://github.com/cnrai/openpave
-    EOS
+  def install
+    # The downloaded file is the binary itself
+    bin.install Dir["*"].first => "pave"
   end
 
   test do
-    # Test that the CLI responds to --help
-    output = shell_output("#{bin}/pave --help 2>&1")
-    assert_match(/pave|usage|options|help/i, output)
-    
-    # Test version output
-    version_output = shell_output("#{bin}/pave --version 2>&1")
-    assert_match(/\d+\.\d+/, version_output)
-    
-    # Test that SpiderMonkey's js command is available
-    js_output = shell_output("#{Formula["spidermonkey"].opt_bin}/js -e 'print(\"sandbox ready\")' 2>&1")
-    assert_match(/sandbox ready/, js_output)
+    assert_match "PAVE", shell_output("#{bin}/pave --version")
   end
 end
