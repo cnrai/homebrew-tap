@@ -7,16 +7,16 @@ class Pave < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/cnrai/pave-dist/releases/download/v0.3.32/pave-darwin-arm64"
-      sha256 "2c71d6fb2de83f20020bffd43675a6649ec0c36a936b890df406eeec029beec4"
+      sha256 "7183291130009f8c6bbe5e2db380867f449d05692db1be8319c3d684f89621d5"
     else
       url "https://github.com/cnrai/pave-dist/releases/download/v0.3.32/pave-darwin-x64"
-      sha256 "681738bf4d04b31ae6116b633abf376320a22e765ec4f4c69c61f4b99b1659d0"
+      sha256 "83ffebe15304de6218a86151e50105045b369ae768d264fcd7367ea37ca1a21a"
     end
   end
 
   on_linux do
     url "https://github.com/cnrai/pave-dist/releases/download/v0.3.32/pave-linux-x64"
-    sha256 "4c49b8147af7ca2742f6402aa1354d7e243f3fb8444ee2bcd8c9c6a75e2b9fec"
+    sha256 "29d3315c926120ade20de7ddfc54903c2dfc1ec737ca63660107a6b30b63319f"
   end
 
   def install
