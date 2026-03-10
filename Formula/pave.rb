@@ -1,22 +1,22 @@
 class Pave < Formula
   desc "Personal AI Virtual Environment - AI agent framework"
   homepage "https://github.com/cnrai/openpave"
-  version "0.3.35"
+  version "0.3.36"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/cnrai/pave-dist/releases/download/v0.3.35/pave-darwin-arm64"
-      sha256 "558d5895316c3f3c7cd2e9f607d69b4f28a578daa31fc1cd103d05ff7ea69b74"
+      url "https://github.com/cnrai/pave-dist/releases/download/v0.3.36/pave-darwin-arm64"
+      sha256 "dd915eb87096048b5b994e4465a2a37990a40c7a5e0cc530e514644f646460fa"
     else
-      url "https://github.com/cnrai/pave-dist/releases/download/v0.3.35/pave-darwin-x64"
-      sha256 "70ee8f230d77aa78e5db1eb7039cf8bce9d99989131c83c4491b0d329914e7fc"
+      url "https://github.com/cnrai/pave-dist/releases/download/v0.3.36/pave-darwin-x64"
+      sha256 "30a714d9ae54aafbddf311d9b4868bff49ee022f383ef1265fe8f94c496ab298"
     end
   end
 
   on_linux do
-    url "https://github.com/cnrai/pave-dist/releases/download/v0.3.35/pave-linux-x64"
-    sha256 "96e5f876fe50817ae72060807141680020c26492d2fa172ad2dbee072dda6390"
+    url "https://github.com/cnrai/pave-dist/releases/download/v0.3.36/pave-linux-x64"
+    sha256 "aa8afc6e88ed3fc2442b3a7e87aaf4fecdd10d42c68184b064039bc1cd2c87e5"
   end
 
   def install
