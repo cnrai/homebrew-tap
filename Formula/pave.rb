@@ -1,7 +1,7 @@
 class Pave < Formula
   desc "Personal AI Virtual Environment - AI agent framework"
   homepage "https://github.com/cnrai/openpave"
-  version "0.9.1"
+  version "0.9.2"
   license "MIT"
 
   # SpiderMonkey provides the js command for secure sandbox execution.
@@ -11,17 +11,17 @@ class Pave < Formula
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/cnrai/pave-dist/releases/download/v0.9.1/pave-darwin-arm64"
-      sha256 "69198d03df8ebfaa4af02ecb52781625d2631a336a9770f8f8faf242b33e7c63"
+      url "https://github.com/cnrai/pave-dist/releases/download/v0.9.2/pave-darwin-arm64"
+      sha256 "e95f85a17fc192bffa5cc3df225919d7fc8fb6cd507dc93d3179d6e0aa1997ae"
     else
-      url "https://github.com/cnrai/pave-dist/releases/download/v0.9.1/pave-darwin-x64"
-      sha256 "349c7dae9d1cc175f8a8f949cf5b85fea68fb8d764863c05e45592eaa0ae877f"
+      url "https://github.com/cnrai/pave-dist/releases/download/v0.9.2/pave-darwin-x64"
+      sha256 "7355c12e136595acd685568279c31109da8523952b54eaafbbf17e268d6e6062"
     end
   end
 
   on_linux do
-    url "https://github.com/cnrai/pave-dist/releases/download/v0.9.1/pave-linux-x64"
-    sha256 "9e8aca1c74a7ec4b012cc5426404305efc4ad0f351aa2f93156bc680f6c95e4d"
+    url "https://github.com/cnrai/pave-dist/releases/download/v0.9.2/pave-linux-x64"
+    sha256 "2adefdd6ff53b42e44e6499f25e7ac21881cc58405b04c293482fb8962a67a07"
   end
 
   def install
