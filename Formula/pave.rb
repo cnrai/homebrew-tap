@@ -11,7 +11,7 @@ class Pave < Formula
 
   on_macos do
     url "https://github.com/cnrai/pave-dist/releases/download/v0.11.101/pave-darwin-arm64.tar.gz"
-    sha256 "0a8a4b43098b48de6f6d5285d1c13308524d86e62b492a78aceeb183607f810e"
+    sha256 "6f8b667b124e1b1aebc1c3c0888810cd200799552cf13891b76dd8b1dc11aa60"
   end
 
   on_linux do
